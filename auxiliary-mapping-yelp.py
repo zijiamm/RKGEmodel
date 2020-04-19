@@ -43,6 +43,10 @@ def mapping(fr_auxiliary, fw_mapping):
 
     return genre_count, city_count
 
+def print_statistic_info(genre_count, city_count):
+    print ('The number of genre is: ' + str(genre_count))
+    print ('The number of city is: ' + str(city_count))
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=''' Map Auxiliary Information into ID''')
     parser.add_argument('--auxiliary', type=str, dest='auxiliary_file', default='data/yelp/auxiliary.txt')
@@ -55,4 +59,10 @@ if __name__ == '__main__':
     
     fr_auxiliary = open(auxiliary_file,'r')
     fw_mapping = open(mapping_file,'w')
+
+    genre_count, city_count = mapping(fr_auxiliary, fw_mapping)
+    print_statistic_info(genre_count, city_count)
+
+    fr_auxiliary.close()
+    fw_mapping.close()
 
