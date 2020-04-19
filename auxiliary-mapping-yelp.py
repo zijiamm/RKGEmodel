@@ -6,11 +6,9 @@ def mapping(fr_auxiliary, fw_mapping):
     '''
     genre_map = {}
     city_map = {}
-
     city_count = genre_count = 0
 
     for line in fr_auxiliary:
-
         lines = line.replace('\n', '').split('|')
         if len(lines) != 3: 
             continue
@@ -45,12 +43,8 @@ def mapping(fr_auxiliary, fw_mapping):
 
     return genre_count, city_count
 
-
-
 if __name__ == '__main__':
-    
     parser = argparse.ArgumentParser(description=''' Map Auxiliary Information into ID''')
-
     parser.add_argument('--auxiliary', type=str, dest='auxiliary_file', default='data/yelp/auxiliary.txt')
     parser.add_argument('--mapping', type=str, dest='mapping_file', default='data/yelp/auxiliary-mapping.txt')
 
