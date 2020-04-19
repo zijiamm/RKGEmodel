@@ -1,14 +1,11 @@
 import numpy as np
 import torch
 import torch.autograd as autograd
-from torch import nn, optim
+from torch import nn
 from torch.autograd import Variable
 import torch.nn.functional as F
 
 class LSTMTrain(object):
-	'''
-	recurrent neural network training process
-	'''
 	def __init__(self, model, iteration, learning_rate, paths_between_pairs, positive_label, \
 		all_variables, all_user, all_movie):
 		super(LSTMTrain, self).__init__()

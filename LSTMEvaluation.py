@@ -33,13 +33,6 @@ class LSTMEvaluation():
 						else:
 							score_dict[user].update({movie:score})
 
-				#rank score in a descending order
-				if user in score_dict and len(score_dict[user]) > 1:
-					item_score_list = score_dict[user]
-					k = min(len(item_score_list), 15) #to speed up the ranking process, we only find the top 15 movies
-					top_item_list = heapq.nlargest(k, item_score_list, key=item_score_list.get)
-					top_score_dict.update({user:top_item_list})
-
 		return top_score_dict
 
 	def calculate_results(self, top_score_dict, k):
