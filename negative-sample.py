@@ -1,5 +1,3 @@
-#This is used to sample negative movies that user has not interactions with, so as to balance model training process
-
 import argparse
 import math
 from random import randint
@@ -28,6 +26,23 @@ def load_data (file):
 
     return train_dict, all_movie_list
 
+    def negative_sample(train_dict, all_movie_list, shrink, fw_negative):
+        all_movie_size = len(all_movie_list)
+
+        for user in train_dict:
+            user_train_movie = train_dict[user]
+            user_train_movie_size = len(user_train_movie)
+            negative_size = math.ceil(user_train_movie_size * shrink)
+            user_negative_movie = []
+
+            while (len(user_negative_movie) < negative_size):
+                negative_index = randint(0, (all_movie_size - 1))
+                negative_movie = str(all_movie_list[negative_index])
+                if negative_movie not in user_train_movie and negative_movie not in user_negative_movie:
+                    user_negative_movie.append(negative_movie)
+                    line = user + '\t' + negative_movie + '\n'
+                    fw_negative.write(line)
+
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description=''' Sample Negative Movies for Each User''')
@@ -44,6 +59,7 @@ if __name__ == '__main__':
     fr_train = open(train_file,'r')
     fw_negative = open(negative_file,'w')
 
+    negative_sample(train_dict, all_movie_list, shrink, fw_negative)
     train_dict, all_movie_list = load_data(fr_train)
 
     fr_train.close()
